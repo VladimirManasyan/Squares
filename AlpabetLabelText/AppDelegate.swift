@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  AlpabetLabelText
 //
-//  Created by Shota Manasyan on 21.04.22.
+//  Created by Vladimir Manasyan on 21.04.22.
 //
 
 import UIKit

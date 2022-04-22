@@ -2,13 +2,15 @@
 //  ViewController.swift
 //  AlpabetLabelText
 //
-//  Created by Shota Manasyan on 21.04.22.
+//  Created by Vladimir Manasyan on 21.04.22.
 //
 
 import UIKit
 
 class ViewController: UIViewController {
     
+    var horizontalSteck: UIStackView!
+    var verticalStack: UIStackView!
     var labelViewA: LableView!
     var labelViewB: LableView!
     var labelViewC: LableView!
@@ -24,9 +26,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         initLabelView()
+        setupVerticalStack()
+        setupHorizontalSlack()
         constructHierarchy()
         activatConstraints()
     }
+    
+    
+}
+
+extension ViewController {
     
     private func initLabelView() {
         
@@ -58,66 +67,49 @@ class ViewController: UIViewController {
         labelViewH.translatesAutoresizingMaskIntoConstraints = false
         labelViewI.translatesAutoresizingMaskIntoConstraints = false
     }
-}
-
-extension ViewController {
+    
+    private func setupVerticalStack() {
+        verticalStack = UIStackView()
+        verticalStack.axis = .vertical
+        verticalStack.distribution = .fillEqually
+        verticalStack.spacing = 10
+        verticalStack.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupHorizontalSlack() {
+        horizontalSteck = UIStackView()
+        horizontalSteck.axis = .horizontal
+        horizontalSteck.distribution = .fillEqually
+        horizontalSteck.spacing = 10
+        horizontalSteck.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private func activatConstraints() {
-        NSLayoutConstraint.activate([
-            labelViewA.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-            labelViewA.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-        ])
         
         NSLayoutConstraint.activate([
-            labelViewB.centerXAnchor.constraint( equalTo: view.centerXAnchor),
-            labelViewB.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-        ])
-        
-        NSLayoutConstraint.activate([
-            labelViewC.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-            labelViewC.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
-        ])
-        
-        NSLayoutConstraint.activate([
-            labelViewD.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            labelViewD.topAnchor.constraint(equalTo: labelViewC.topAnchor, constant: 120)
-        ])
-        
-        NSLayoutConstraint.activate([
-            labelViewE.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            labelViewE.topAnchor.constraint(equalTo: labelViewB.topAnchor, constant: 120)
-        ])
-        
-        NSLayoutConstraint.activate([
-            labelViewF.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
-            labelViewF.topAnchor.constraint(equalTo: labelViewC.topAnchor, constant: 120)
-        ])
-        
-        NSLayoutConstraint.activate([
-            labelViewG.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            labelViewG.topAnchor.constraint(equalTo: labelViewD.topAnchor, constant: 120)
-        ])
-        
-        NSLayoutConstraint.activate([
-            labelViewH.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            labelViewH.topAnchor.constraint(equalTo: labelViewE.topAnchor, constant: 120)
-        ])
-        
-        NSLayoutConstraint.activate([
-            labelViewI.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
-            labelViewI.topAnchor.constraint(equalTo: labelViewF.topAnchor, constant: 120)
+            verticalStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
+            verticalStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
+            verticalStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25)
         ])
     }
     
     private func constructHierarchy() {
-        view.addSubview(labelViewA)
-        view.addSubview(labelViewB)
-        view.addSubview(labelViewC)
-        view.addSubview(labelViewD)
-        view.addSubview(labelViewE)
-        view.addSubview(labelViewF)
-        view.addSubview(labelViewG)
-        view.addSubview(labelViewH)
-        view.addSubview(labelViewI)
-    }
+        view.addSubview(verticalStack)
+        verticalStack.addArrangedSubview(horizontalSteck)
+        horizontalSteck.addArrangedSubview(labelViewA)
+        horizontalSteck.addArrangedSubview(labelViewB)
+        horizontalSteck.addArrangedSubview(labelViewC)
+        
+        setupHorizontalSlack()
+        verticalStack.addArrangedSubview(horizontalSteck)
+        horizontalSteck.addArrangedSubview(labelViewD)
+        horizontalSteck.addArrangedSubview(labelViewE)
+        horizontalSteck.addArrangedSubview(labelViewF)
+        
+        setupHorizontalSlack()
+        verticalStack.addArrangedSubview(horizontalSteck)
+        horizontalSteck.addArrangedSubview(labelViewG)
+        horizontalSteck.addArrangedSubview(labelViewH)
+        horizontalSteck.addArrangedSubview(labelViewI)
+   }
 }
